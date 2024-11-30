@@ -1,0 +1,15 @@
+2024-11-10 11:44:54	db95ef02-89c0-4175-8b68-d74cb0ebf653	ReferenceError: logEvent is not defined	PATCH	/device/672cfcff574fd8ecaf372bd0	undefined
+2024-11-10 11:45:15	126803f0-b0bc-43f1-9f2b-9b640b9a6a7e	Error: Not allowed by CORS	PATCH	/device/672cfcff574fd8ecaf372bd0	undefined
+2024-11-10 11:48:30	02079669-e4fb-4f83-9481-7be138c18e91	Error: Not allowed by CORS	PATCH	/device/672cfcff574fd8ecaf372bd0	undefined
+2024-11-10 12:33:36	bda7230d-506d-460a-acf5-3da3583a054d	Error: Not allowed by CORS	PATCH	/device/672cfcff574fd8ecaf372bd0	undefined
+2024-11-10 13:29:10	8f77d595-79ac-4003-b7ed-1e6c72296082	Error: Not allowed by CORS	OPTIONS	/	https://www.bing.com
+2024-11-10 13:29:10	8eed80af-424f-471f-9e4b-566266442827	Error: Not allowed by CORS	GET	/	https://www.bing.com
+2024-11-10 13:29:24	ea4485f7-51e0-47bd-b2cf-b9bd2d491ab6	Error: Not allowed by CORS	OPTIONS	/	https://www.bing.com
+2024-11-10 13:29:24	b5e8c7d1-5140-4f7d-844e-768a0305f5d8	Error: Not allowed by CORS	GET	/	https://www.bing.com
+2024-11-10 14:19:10	f60bf5d3-8113-4212-90c4-76fa9d3f91c7	ReferenceError: db is not defined	GET	/user	undefined
+2024-11-10 14:22:10	f86b4291-80b0-4740-8cfb-9a78b3a6586d	ReferenceError: USER is not defined	GET	/user	undefined
+2024-11-10 14:27:08	baec73a7-8fd0-427e-969a-fa6782140de8	SyntaxError: Unexpected string in JSON at position 58	POST	/user/register	undefined
+2024-11-10 15:01:16	2d90e6c9-714d-4b8d-9016-ae452bf93bfc	SyntaxError: Unexpected string in JSON at position 27	POST	/chart/	undefined
+2024-11-10 15:24:19	a85e3f92-9473-4587-9f7b-8153a710b4ad	ReferenceError: Sensor is not defined	GET	/sensor/	undefined
+2024-11-10 20:16:11	2d6a2481-39f8-43ca-b201-2c5111da4feb	CastError: Cast to ObjectId failed for value "all" (type string) at path "_id" for model "sensor"	GET	/sensor/all	undefined
+2024-11-10 20:17:50	abafdf1f-8de1-42b4-aad2-1c26463d7eca	CastError: Cast to ObjectId failed for value "all" (type string) at path "_id" for model "sensor"	GET	/sensor/all	undefined
