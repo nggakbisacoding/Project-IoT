@@ -3,7 +3,7 @@ const db = require('../models/sensor.model');
 const sensor = require('../function/sensor');
 const upload = require('../function/upload');
 const threshold = require('../models/threshold.model');
-const formula = require('../models/formula.model');
+const formul = require('../models/formula.model');
 const thresholdFunction = require('../function/threshold');
 const value = require('../models/value.model');
 
@@ -19,13 +19,13 @@ exports.create = asyncHandler(async (req, res) => {
         const newSensor = new db({ name, api_url });
         await newSensor.save();
 
-        const newValue = new value({ sensor: newSensor._id });
+        const newValue = new value({ sensor: newSensor._id, active: true });
         await newValue.save();
 
         const newFormula = new formula({ sensor: newSensor._id });
         await newFormula.save();
         
-        sensor(api_url);
+        res.json({ message: 'Sensor created' });
     } catch (error) {
         res.status(500).json({ error });
     }
@@ -64,8 +64,9 @@ exports.findAll = asyncHandler(async (req, res, next) => {
 });
 
 exports.findActive = asyncHandler(async (req, res, next) => {
+    const { id } = req.params;
     try {
-        thresholdFunction.show(req);
+        thresholdFunction.show(id);
         const allFeatures = await value.find({ active: true }).lean().exec();
         res.json({ allFeatures });
     } catch (error) {
@@ -88,15 +89,36 @@ exports.show = asyncHandler(async (req, res, next) => {
     }
 });
 
+exports.createValue = asyncHandler(async (req, res, next) => {
+    const { id } = req.params;
+    const { functionName , active} = req.body;
+    const values = req.body.values;
+    const date = req.body.date;
+
+    try {
+        const newValue = new value({ sensor: id, functionName, value: values, date: date, active: active });
+        await newValue.save();
+        res.json({ message: 'Value created' });
+    }
+    catch (error) {
+        next(error);
+    }
+});
+
 exports.addValue = asyncHandler(async (req, res, next) => {
     const { id } = req.params;
-    const { functionName, values, date } = req.body;
+    const { functionName , active} = req.body;
+    const values = req.body.values;
+    const date = req.body.date;
     try {
-        const db = await value.findOne({ sensor: id }).exec();
+        const db = await value.findById(id).exec();
         db.functionName = functionName;
-        db.values.push(values);
-        db.date.push(date);
-        db.save();
+        for(i=0;i<values.length;i++){
+            db.value.push(values[i]);
+            db.date.push(date[i]);
+        }
+        db.active = active;
+        await db.save();
         res.json({ message: "Data added " });
     } catch (error) {
         next(error);
@@ -105,11 +127,52 @@ exports.addValue = asyncHandler(async (req, res, next) => {
 
 exports.addData = asyncHandler(async (req, res, next) => {
     const { id } = req.params;
+    const values = req.body.values;
+    const date = req.body.date;
     try {
-        const db = await value.findOne({ sensor: id }).exec();
-        db.value.push(req.body.value);
-        db.save();
+        const db = await value.findById(id).exec();
+        for(i=0;i<values.length;i++){
+            db.value.push(values[i]);
+            db.date.push(date[i]);
+        }
+        await db.save();
         res.json({ message: "Data added " });
+    } catch (error) {
+        next(error);
+    }
+});
+
+exports.updateFormula = asyncHandler(async (req, res, next) => {
+    const { id } = req.params;
+    const { formula, operator, target, msg } = req.body;
+    try {
+
+        const formulas = await formul.findById(id).exec();
+
+        formulas.formula = formula;
+        formulas.operator = operator;
+        formulas.target = target;
+        formulas.msg = msg;
+
+        const updatedFormula = await formulas.save();
+
+        res.json({ message: `${updatedFormula} updated` })
+
+    } catch (error) {
+        next(error);
+    }
+});
+
+exports.addThreshold = asyncHandler(async (req, res, next) => {
+    const data = req.body;
+    try {
+        for (const key in data) {
+            for(i=0;i<data[key].length;i++){
+                const newThreshold = new threshold({ sensor: data[key][i].id, target: data[key][i].target, min: data[key][i].min, max: data[key][i].max });
+                await newThreshold.save();
+            }
+        }
+        res.json({ message: 'Threshold added' });
     } catch (error) {
         next(error);
     }
@@ -117,13 +180,13 @@ exports.addData = asyncHandler(async (req, res, next) => {
 
 exports.display = asyncHandler(async (req, res, next) => {
     const { id } = req.params;
-    const { jsonData } = req.body;
+    const jsonData = req.body;
     try {
         for(const key in jsonData) {
             jsonData[key].forEach(async item => {
                 const db = await value.findOne({ functionName: item.name }).exec();
                 db.active = item.active;
-                db.save();
+                await db.save();
             });
         }
         res.json({ message: "Features edited" });
@@ -155,8 +218,6 @@ exports.update = asyncHandler(async (req, res, next) => {
         const updatedSensor = await sensor.save();
 
         res.json({ message: `${updatedSensor.name} updated` })
-
-        res.json(result);
     } catch (error) {
         next(error);
     }

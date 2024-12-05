@@ -13,11 +13,10 @@ const schema = new mongoose.Schema({
     },
     date: {
         type: [Date],
-        default: Date.now
     },
-    active: { Boolean, default: () => true }
+    active: Boolean,
 }, {
-    timestamps: false
+    timestamps: true
 });
 
 module.exports = mongoose.model('value', schema);

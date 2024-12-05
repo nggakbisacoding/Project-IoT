@@ -15,3 +15,20 @@
 2024-11-10 20:17:50	abafdf1f-8de1-42b4-aad2-1c26463d7eca	CastError: Cast to ObjectId failed for value "all" (type string) at path "_id" for model "sensor"	GET	/sensor/all	undefined
 2024-12-04 20:54:24	33a5c6e7-2352-4dfc-b9ea-16f7b2c6b79e	ReferenceError: allFeatures is not defined	GET	/sensor	undefined
 2024-12-04 21:03:36	62b1c622-6866-43fb-ba87-b33b9a6b87e7	ReferenceError: db is not defined	GET	/user	undefined
+2024-12-05 08:59:37	91947727-eddd-429b-bbb3-83db5547e2b7	SyntaxError: Expected property name or '}' in JSON at position 7 (line 2 column 5)	POST	/sensor/addThreshold	undefined
+2024-12-05 09:00:54	9d56f581-6738-4c3b-b7c4-4fc890fff0aa	SyntaxError: Expected property name or '}' in JSON at position 7 (line 2 column 5)	POST	/sensor/addThreshold	undefined
+2024-12-05 09:02:39	81792734-d7e0-4096-bf92-cb718bafb642	SyntaxError: Expected property name or '}' in JSON at position 7 (line 2 column 5)	POST	/sensor/addThreshold	undefined
+2024-12-05 09:02:48	b17ccff4-ab8e-4639-a0f1-34397de397bd	SyntaxError: Expected property name or '}' in JSON at position 47 (line 4 column 13)	POST	/sensor/addThreshold	undefined
+2024-12-05 09:03:56	0e5d632c-8a44-402f-b253-b8042d02c216	ReferenceError: newThreshold is not defined	POST	/sensor/addThreshold	undefined
+2024-12-05 09:05:21	93a7fa70-9080-4279-9930-3a4eb3ecefbb	ReferenceError: newThreshold is not defined	POST	/sensor/addThreshold	undefined
+2024-12-05 09:09:55	9c91fff0-4e15-4557-81b3-6e8d0be4cf78	ValidationError: threshold validation failed: sensor: Path `sensor` is required.	POST	/sensor/addThreshold	undefined
+2024-12-05 09:19:37	1332f064-67e1-4b21-b62a-7e6ad5c2a5ad	TypeError: sensor.save is not a function	POST	/sensor/updateFormula/6750f918ca1f5dab28d6f539	undefined
+2024-12-05 09:20:24	5c655cb4-7d28-42d5-b4f3-f2108b3241de	ReferenceError: result is not defined	POST	/sensor/updateFormula/6750f918ca1f5dab28d6f539	undefined
+2024-12-05 09:46:45	a6cbd6e1-05f1-4adb-8326-da68e1cbec06	SyntaxError: Expected ',' or ']' after array element in JSON at position 83 (line 4 column 19)	POST	/sensor/addValue/6750f918ca1f5dab28d6f537	undefined
+2024-12-05 09:47:43	3697d6bd-182b-4210-87e9-fb5b0c1a48fa	SyntaxError: Expected ',' or ']' after array element in JSON at position 83 (line 4 column 19)	POST	/sensor/addValue/6750f918ca1f5dab28d6f537	undefined
+2024-12-05 09:50:01	cdb78993-2809-44b0-ae51-1ff16d7a80a4	SyntaxError: Expected ',' or ']' after array element in JSON at position 83 (line 4 column 19)	POST	/sensor/addValue/6750f918ca1f5dab28d6f537	undefined
+2024-12-05 09:52:03	62a223c0-3144-4a86-b215-9498ff12ff04	SyntaxError: Expected ',' or ']' after array element in JSON at position 83 (line 4 column 19)	POST	/sensor/addValue/6750f918ca1f5dab28d6f537	undefined
+2024-12-05 09:56:37	1e606c02-e911-41af-af5b-9abba5547213	TypeError: Cannot read properties of undefined (reading 'set')	POST	/sensor/addValue/6750f918ca1f5dab28d6f537	undefined
+2024-12-05 10:26:30	b6d233c7-4145-45db-b9fd-bc63af630461	TypeError: Cannot read properties of undefined (reading 'push')	POST	/sensor/addValue/6750f918ca1f5dab28d6f537	undefined
+2024-12-05 10:27:56	4784f4b1-2106-44a9-996a-01f746473a2d	TypeError: Cannot read properties of undefined (reading '0')	POST	/sensor/addValue/6750f918ca1f5dab28d6f537	undefined
+2024-12-05 10:31:27	211ba928-3328-4f28-9267-9cdc34581b97	TypeError: Cannot read properties of undefined (reading '0')	POST	/sensor/addValue/6750f918ca1f5dab28d6f537	undefined
