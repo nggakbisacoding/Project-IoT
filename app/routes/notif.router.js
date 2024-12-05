@@ -3,7 +3,8 @@ const route = require('express').Router()
 
 module.exports = app =>{
 
-    route.post('/', notif.createNotif)
+    route.post('/', notif.create)
+    route.get('/', notif.findAll)
     route.get('/:id', notif.show)
     route.post('/:id', notif.delete)
 

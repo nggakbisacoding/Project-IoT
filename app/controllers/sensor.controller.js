@@ -1,7 +1,10 @@
 const asyncHandler = require('express-async-handler');
 const db = require('../models/sensor.model');
+const sensor = require('../function/sensor');
 const upload = require('../function/upload');
 const threshold = require('../models/threshold.model');
+const formula = require('../models/formula.model');
+const thresholdFunction = require('../function/threshold');
 const value = require('../models/value.model');
 
 exports.create = asyncHandler(async (req, res) => {
@@ -16,13 +19,13 @@ exports.create = asyncHandler(async (req, res) => {
         const newSensor = new db({ name, api_url });
         await newSensor.save();
 
-        const newThreshold = new threshold({ sensor: newSensor._id });
-        await newThreshold.save();
-
-        const newValue = new value({ sensor: newSensor._id, value: 0 });
+        const newValue = new value({ sensor: newSensor._id });
         await newValue.save();
 
-        res.json({ message: 'Sensor created' });
+        const newFormula = new formula({ sensor: newSensor._id });
+        await newFormula.save();
+        
+        sensor(api_url);
     } catch (error) {
         res.status(500).json({ error });
     }
@@ -62,7 +65,8 @@ exports.findAll = asyncHandler(async (req, res, next) => {
 
 exports.findActive = asyncHandler(async (req, res, next) => {
     try {
-        const allFeatures = await features.find({ active: true }).lean().exec();
+        thresholdFunction.show(req);
+        const allFeatures = await value.find({ active: true }).lean().exec();
         res.json({ allFeatures });
     } catch (error) {
         next(error);
@@ -84,13 +88,45 @@ exports.show = asyncHandler(async (req, res, next) => {
     }
 });
 
-exports.addData = asyncHandler(async (req, res, next) => {
-    const { id } = req.params
+exports.addValue = asyncHandler(async (req, res, next) => {
+    const { id } = req.params;
+    const { functionName, values, date } = req.body;
     try {
-        const value = await value.findOne({ sensor: id }).exec();
-        sensor.value.push(req.body.value);
-        sensor.save();
+        const db = await value.findOne({ sensor: id }).exec();
+        db.functionName = functionName;
+        db.values.push(values);
+        db.date.push(date);
+        db.save();
         res.json({ message: "Data added " });
+    } catch (error) {
+        next(error);
+    }
+});
+
+exports.addData = asyncHandler(async (req, res, next) => {
+    const { id } = req.params;
+    try {
+        const db = await value.findOne({ sensor: id }).exec();
+        db.value.push(req.body.value);
+        db.save();
+        res.json({ message: "Data added " });
+    } catch (error) {
+        next(error);
+    }
+});
+
+exports.display = asyncHandler(async (req, res, next) => {
+    const { id } = req.params;
+    const { jsonData } = req.body;
+    try {
+        for(const key in jsonData) {
+            jsonData[key].forEach(async item => {
+                const db = await value.findOne({ functionName: item.name }).exec();
+                db.active = item.active;
+                db.save();
+            });
+        }
+        res.json({ message: "Features edited" });
     } catch (error) {
         next(error);
     }

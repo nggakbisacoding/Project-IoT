@@ -11,8 +11,10 @@ module.exports = app =>{
     .delete(sensor.delete);
     route.put('/:id', sensor.addData)
     route.get('/all', sensor.findAll)
-    route.delete('/:id', sensor.delete)
     route.post('/upload', sensor.upload)
+    route.post('addValue', sensor.addValue)
+    route.post('/addData', sensor.addData)
+    route.post('/changeActive', sensor.display)
 
     app.use('/sensor', route)
 }

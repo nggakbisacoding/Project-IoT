@@ -6,8 +6,10 @@ const threshold = new mongoose.Schema({
         ref: 'sensor',
         required: true
     },
-    value: { type: String, default: () => "1,100" },
-    formula: { type: String, default: () => "x" },
+    target: { type: String, default: () => "0" },
+    min: { type: Number, default: () => 0 },
+    max: { type: Number, default: () => 0 },
+    msg: { type: String, default: () => "Threshold reached" },
 } , {
     timestamps: true
 })

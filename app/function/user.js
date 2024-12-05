@@ -24,15 +24,6 @@ exports.register = async (req, res) => {
     }
 }
 
-exports.findsAll = async (req, res) => {
-    const user = await db.find().lean().exec();
-    
-    if (!user) {
-        return res.status(400).json({ message: 'User not found' });
-    }
-    res.json(user);
-}
-
 exports.findsId = async (req, res) => {
     const { id } = req.params;
 

@@ -1,32 +1,24 @@
+import fetch from 'node-fetch';
 const sensor = require('../models/sensor.model');
 const value = require('../models/value.model');
 
-export const getSensorValue = async (request) => {
-    const { id } = request;
-    const sensors = await sensor.findById({ id });
-    if (!sensors) return null;
-  
-    const now = new Date();
-  
-    let start_time = request.start_time;
-    let end_time = request.end_time;
-  
-    if (!end_time) {
-      end_time = now;
-    }
-  
-    if (!start_time) {
-      startTime = new Date(now.getTime() - 24 * 60 * 60 * 1000); // 24 jam yang lalu
-    }
-  
-    return value.where({
-        sensor: id,
-        active: true,
-//        timestamp: {
-//            $gt: start_time,
-//            $lt: end_time,
-//       },
-    }).select('value').lean().exec();
-  };
-  
-  
+exports.sensor = async (request) => {
+  try {
+    const uri = request;
+
+    const response = await fetch(uri, {
+      method: 'GET',
+      mode: 'cors',
+      headers: { 'Content-Type': 'application/json' }
+    })
+
+    const data = await response.json();
+
+    console.log(data);
+
+    res.json(data);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('server error');
+  }
+};

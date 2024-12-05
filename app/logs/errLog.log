@@ -13,3 +13,5 @@
 2024-11-10 15:24:19	a85e3f92-9473-4587-9f7b-8153a710b4ad	ReferenceError: Sensor is not defined	GET	/sensor/	undefined
 2024-11-10 20:16:11	2d6a2481-39f8-43ca-b201-2c5111da4feb	CastError: Cast to ObjectId failed for value "all" (type string) at path "_id" for model "sensor"	GET	/sensor/all	undefined
 2024-11-10 20:17:50	abafdf1f-8de1-42b4-aad2-1c26463d7eca	CastError: Cast to ObjectId failed for value "all" (type string) at path "_id" for model "sensor"	GET	/sensor/all	undefined
+2024-12-04 20:54:24	33a5c6e7-2352-4dfc-b9ea-16f7b2c6b79e	ReferenceError: allFeatures is not defined	GET	/sensor	undefined
+2024-12-04 21:03:36	62b1c622-6866-43fb-ba87-b33b9a6b87e7	ReferenceError: db is not defined	GET	/user	undefined

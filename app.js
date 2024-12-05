@@ -28,7 +28,7 @@ require('./app/routes/chart.router')(app);
 
 app.use(errorHandler);
 
-const PORT = process.env.port || 8000
+const PORT = process.env.port || 3000
 
 mongoose.connection.once('open', err => {
     app.listen(PORT, ()=>{

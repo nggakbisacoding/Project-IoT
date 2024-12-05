@@ -2,9 +2,9 @@ const mongoose = require("mongoose");
 
 const schema = new mongoose.Schema(
     {
-        device: {
+        sensor: {
             type: mongoose.Schema.Types.ObjectId,
-            Ref: 'device',
+            Ref: 'sensor',
             required: true
         },
         name: String,

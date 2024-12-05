@@ -6,19 +6,16 @@ const schema = new mongoose.Schema({
         ref: 'sensor',
         required: true
     },
-    function: {
-        type: String,
-        required
-    },
+    functionName: { type: String, default: () => "none" },
     value: {
-        type: [{Number}],
-        required: true
+        type: [Number],
+        default: () => [0]
     },
-    active: Boolean,
-    created_at: { 
-        type: Date, 
-        default: () => Date.now(), 
-        immutable: true },
+    date: {
+        type: [Date],
+        default: Date.now
+    },
+    active: { Boolean, default: () => true }
 }, {
     timestamps: false
 });

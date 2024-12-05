@@ -1,13 +1,14 @@
 const user = require('../function/user');
-const asyncHandler = require('express-async-handler')
+const asyncHandler = require('express-async-handler');
+const db = require('../models/user.model');
 
 // Register db.user
 exports.register = asyncHandler(async (req, res, next) => {
     try {
         user.register(req, res);
-     } catch (error) {
+    } catch (error) {
         next(error);
-     }
+    }
 })
 
 // Login db.user
@@ -37,7 +38,11 @@ exports.delete = asyncHandler(async (req, res, next) => {
 
 exports.findsAll = asyncHandler(async (req, res, next) => {
     try {
-        user.findsAll(req, res);
+        const user = await db.find().lean().exec();
+        if (!user) {
+            return res.status(400).json({ message: 'User not found' });
+        }
+        res.json(user);
     } catch (error) {
         next(error);
     }
