@@ -1,4 +1,3 @@
-import fetch from 'node-fetch';
 const sensor = require('../models/sensor.model');
 const value = require('../models/value.model');
 
